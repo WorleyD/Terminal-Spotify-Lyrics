@@ -54,7 +54,7 @@ with open("config", "r") as f:
 #set scope and token for spotify
 scope="user-read-currently-playing"
 token = util.prompt_for_user_token(param_dict["username"], scope=scope, client_id=param_dict["spotify_clientID"], 
-									client_secret=param_dict["spotify_secret"], redirect_uri=param_dict["hostname"])
+				client_secret=param_dict["spotify_secret"], redirect_uri=param_dict["hostname"])
 
 #if we properly authenticated
 if token:
