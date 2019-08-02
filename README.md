@@ -1,4 +1,4 @@
-A terminal based spotify app that displays the lyrics for whatever you're currently listening to. 
+A short program that displays the lyrics for whatever you're currently listening to on Spotify in the terminal.  
   
 Dependencies:  
       - Beautiful Soup 4  
