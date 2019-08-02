@@ -11,7 +11,7 @@ spotify_clientID=[Spotify client id]
 spotify_secret=[Spotidy secret]  
 genius_clientID=[Genius client id]  
 genius_secret=[Genius secret]  
-hostname=http://localhost:8888/callback/  
+hostname=[hostname url (localhost is usually fine)]
 genius_token=[Genius access token]  
 
 You'll need to authenticate your spotify account with the app on the first run
