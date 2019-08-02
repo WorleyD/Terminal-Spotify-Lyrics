@@ -96,6 +96,6 @@ if token:
 			print(lyrics)
 		
 		#sleep for the rest of the song
-		sleep(time_left/1000 + .5)
+		sleep(time_left/1000  + 0.05)
 		clear_console()
 		
