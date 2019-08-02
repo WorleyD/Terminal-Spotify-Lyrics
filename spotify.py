@@ -4,7 +4,7 @@ import json
 from time import sleep
 import requests
 from bs4 import BeautifulSoup
-
+import lxml
 
 def get_lyrics(response):
 	#get response as json
@@ -28,18 +28,14 @@ def get_lyrics(response):
 	if song_url is not None:
 		#get the page as text, parse it with bs4
 		lyrics_page = requests.get(song_url, timeout=5).text
-		soup = BeautifulSoup(lyrics_page, 'html.parser')
+		soup = BeautifulSoup(lyrics_page, 'lxml')
 		lyrics = soup.find("div", {"class": "lyrics"}).text
 
 	return lyrics
 
-
-def clear_console():
-	#print until everythings off screen :)
-	for i in range(55):	#a good arbitrary number
-		print()
-
 param_dict = {}
+
+clear = "\n"*55
 
 #read in all client ids and secrets from a config file and store them in a dict
 with open("config", "r") as f:
@@ -97,5 +93,5 @@ if token:
 		
 		#sleep for the rest of the song
 		sleep(time_left/1000  + 0.05)
-		clear_console()
+		print(clear)	#clear the console
 		
