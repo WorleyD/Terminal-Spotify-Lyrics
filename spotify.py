@@ -55,7 +55,9 @@ token = util.prompt_for_user_token(param_dict["username"], scope=scope, client_i
 #if we properly authenticated
 if token:
 	sp = spotipy.Spotify(auth=token)
-	
+
+	#clear the console initially for cleaner output
+	print(clear)
 	while True:
 		#get currently playing track from spotify
 		track = sp.current_user_playing_track()
@@ -90,8 +92,11 @@ if token:
 		#print lyrics if we parsed them
 		if lyrics is not None:
 			print(lyrics)
+		else:
+			print("Sorry, lyrics could not be found :( ")
 		
 		#sleep for the rest of the song
 		sleep(time_left/1000  + 0.05)
-		print(clear)	#clear the console
+		#clear the console
+		print(clear)	
 		
