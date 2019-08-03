@@ -27,7 +27,7 @@ def get_lyrics(response):
 	#if we found a matching song, try to parse lyrics
 	if song_url is not None:
 		#get the page as text, parse it with bs4
-		lyrics_page = requests.get(song_url, timeout=5).text
+		lyrics_page = requests.get(song_url, timeout=10).text
 		soup = BeautifulSoup(lyrics_page, 'lxml')
 		lyrics = soup.find("div", {"class": "lyrics"}).text
 
@@ -85,7 +85,7 @@ if token:
 		url = "https://api.genius.com/search"
 
 		#get all hits matching our request
-		response = requests.get(url, data=data, headers=headers, timeout=5)
+		response = requests.get(url, data=data, headers=headers, timeout=10)
 
 		#find the right lyeics page and parse it with bs4
 		lyrics = get_lyrics(response)
