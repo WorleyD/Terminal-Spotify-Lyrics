@@ -17,4 +17,9 @@ genius_token=[Genius access token]
 You'll need to authenticate your spotify account with the app on the first run.
 
 See the following link for example output:  
-https://imgur.com/a/EjkTpV4
+https://imgur.com/a/EjkTpV4  
+  
+Known Issues:
+	- Rarely the same song and lyrics will be briefly printed when switching songs, the clear command makes this relatively unnoticeable and increasing the minimum bound further may make things feel slow  
+	- if artist name isnt a 100% match the genius lookup will return None. This is only an issue for bands with multiple aliases (ex. 3OH!3, IDKHow, etc.) and seems infrequent.  
+
