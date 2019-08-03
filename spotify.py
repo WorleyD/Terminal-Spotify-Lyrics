@@ -76,6 +76,7 @@ if token:
 		done = track['progress_ms']
 		total = info['duration_ms']
 		time_left = total - done
+		seconds = time_left/1000
 		start = time()
 		#build request for genius
 		print(artist, " - ", song)
@@ -99,8 +100,14 @@ if token:
 
 		#remove execution time from sleep for more accurate sleep
 		elapsed = end-start
+
+		#prevent a really slow request from making sleep time negative
+		if elapsed > seconds:
+			elapsed = 0
+			seconds = 0.5		
+
 		#sleep for the rest of the song
-		sleep(time_left/1000  - elapsed + 0.05)
+		sleep(seconds - elapsed + 0.1)
 		#clear the console
 		print(clear)	
 		
