@@ -15,3 +15,6 @@ hostname=[hostname url (localhost is usually fine)]
 genius_token=[Genius access token]  
   
 You'll need to authenticate your spotify account with the app on the first run.
+
+See the following link for example output:  
+https://imgur.com/a/EjkTpV4
