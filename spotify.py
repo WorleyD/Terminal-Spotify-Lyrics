@@ -107,7 +107,7 @@ if token:
 			seconds = 0.5		
 
 		#sleep for the rest of the song
-		sleep(seconds - elapsed + 0.1)
+		sleep(seconds - elapsed + 0.4)
 		#clear the console
 		print(clear)	
 		
