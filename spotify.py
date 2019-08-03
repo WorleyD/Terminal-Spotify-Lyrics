@@ -1,7 +1,7 @@
 import spotipy
 import spotipy.util as util
 import json
-from time import sleep
+from time import sleep, time
 import requests
 from bs4 import BeautifulSoup
 import lxml
@@ -76,7 +76,7 @@ if token:
 		done = track['progress_ms']
 		total = info['duration_ms']
 		time_left = total - done
-
+		start = time()
 		#build request for genius
 		print(artist, " - ", song)
 		headers = {'Authorization': 'Bearer ' + param_dict["genius_token"]}
@@ -95,8 +95,12 @@ if token:
 		else:
 			print("Sorry, lyrics could not be found :( ")
 		
+		end = time()
+
+		#remove execution time from sleep for more accurate sleep
+		elapsed = end-start
 		#sleep for the rest of the song
-		sleep(time_left/1000  + 0.05)
+		sleep(time_left/1000  - elapsed + 0.05)
 		#clear the console
 		print(clear)	
 		
