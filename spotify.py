@@ -5,6 +5,7 @@ from time import sleep, time
 import requests
 from bs4 import BeautifulSoup
 import lxml
+import sys
 
 def get_lyrics(response):
 	#get response as json
@@ -59,11 +60,15 @@ token = util.prompt_for_user_token(param_dict["username"], scope=scope, client_i
 if token:
 	sp = spotipy.Spotify(auth=token)
 
+	#Sometimes the first song does not load properly, likely an issue here
+	sleep(1)
 	#clear the console initially for cleaner output
-	print(clear)
 	while True:
 		#get currently playing track from spotify
 		track = sp.current_user_playing_track()
+		if track == None:
+			print("No track playing! Exiting..")
+			sys.exit(1)
 
 		info = track['item']
 
@@ -78,6 +83,7 @@ if token:
 			song_title = song
 
 		#build request for genius
+		print(clear)
 		print(artist, " - ", song)
 		headers = {'Authorization': 'Bearer ' + param_dict["genius_token"]}
 		data = {'q': song_title + ' ' + artist}
@@ -97,10 +103,15 @@ if token:
 		else:
 			sleep(1)
 			tries = 0
-			while tries < 3 and lyrics == None:
+			while tries < 5 and lyrics == None:
+				sleep(2)
 				lyrics = get_lyrics(response)
-				sleep(1)
+				tries+=1 
 		
+		if lyrics is None:
+			print("Lyrics could not be found :(")		
+		else:
+			print(lyrics)
 		#Check for new song every second
 		
 		while True:
