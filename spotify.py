@@ -29,6 +29,9 @@ def get_lyrics(response):
 		#get the page as text, parse it with bs4
 		lyrics_page = requests.get(song_url, timeout=10).text
 		soup = BeautifulSoup(lyrics_page, 'lxml')
+		s = soup.find("div", {"class" : "lyrics"})
+		if s is None:
+			return None
 		lyrics = soup.find("div", {"class": "lyrics"}).text
 
 	return lyrics
@@ -73,11 +76,7 @@ if token:
 			song_title = song[0:song.find("-")-1]
 		else:
 			song_title = song
-		done = track['progress_ms']
-		total = info['duration_ms']
-		time_left = total - done
-		seconds = time_left/1000
-		start = time()
+
 		#build request for genius
 		print(artist, " - ", song)
 		headers = {'Authorization': 'Bearer ' + param_dict["genius_token"]}
@@ -87,27 +86,32 @@ if token:
 		#get all hits matching our request
 		response = requests.get(url, data=data, headers=headers, timeout=10)
 
-		#find the right lyeics page and parse it with bs4
+		sleep(1)
+
+		#find the right lyrics page and parse it with bs4
 		lyrics = get_lyrics(response)
 
 		#print lyrics if we parsed them
 		if lyrics is not None:
 			print(lyrics)
 		else:
-			print("Sorry, lyrics could not be found :( ")
+			sleep(1)
+			tries = 0
+			while tries < 3 and lyrics == None:
+				lyrics = get_lyrics(response)
+				sleep(1)
 		
-		end = time()
+		#Check for new song every second
+		
+		while True:
+			t = sp.current_user_playing_track()
+			i = t['item']
+			s = i['name']
+			if s != song:
+				print(s, song)
+				break
+			sleep(1)
 
-		#remove execution time from sleep for more accurate sleep
-		elapsed = end-start
-
-		#prevent a really slow request from making sleep time negative
-		if elapsed > seconds:
-			elapsed = 0
-			seconds = 0.5		
-
-		#sleep for the rest of the song
-		sleep(seconds - elapsed + 1)
 		#clear the console
 		print(clear)	
 		
