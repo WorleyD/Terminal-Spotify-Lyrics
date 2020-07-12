@@ -120,7 +120,7 @@ if token:
 			i = t['item']
 			s = i['name']
 			if s != song:
-				print(s, song)
+				#print(s, song)
 				break
 			sleep(1)
 
