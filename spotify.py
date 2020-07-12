@@ -108,10 +108,11 @@ if token:
 				lyrics = get_lyrics(response)
 				tries+=1 
 		
-		if lyrics is None:
-			print("Lyrics could not be found :(")		
-		else:
-			print(lyrics)
+			if lyrics is None:
+				print("Lyrics could not be found :(")		
+			else:
+				print(lyrics)
+				
 		#Check for new song every second
 		
 		while True:
