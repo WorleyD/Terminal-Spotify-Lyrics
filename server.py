@@ -38,8 +38,8 @@ def waitForConnection():
 	
 
 def getToken(username):
-	spotify_clientID="1a8ca4b3f9564d59bbba81bfd985c611"
-	spotify_secret="895f78a5901d4a1aa1c44a30e45d24af"
+	spotify_clientID="REMOVED"
+	spotify_secret="REMOVED"
 	hostname="http://localhost:8888/callback/"
 	scope = "user-read-currently-playing"
 	token = util.prompt_for_user_token(username, scope=scope, client_id=spotify_clientID, 
@@ -51,7 +51,7 @@ def getLyrics(songName, artist):
 	genius_clientID="REMOVED"
 	genius_secret="REMOVED"
 	hostname="http://localhost:8888/callback/"
-	genius_token="QYZgRX9pHK-TCxsqgSN1BQR05V3Gx3N7YhjRPQWbGYVPXVazzKLZ6lDNvQkXP8-6"
+	genius_token="REMOVED"
 	
 	headers = {'Authorization': 'Bearer ' + genius_token}
 	data = {'q': songName + ' ' + artist}
