@@ -32,7 +32,7 @@ def get_lyrics(response):
 		soup = BeautifulSoup(lyrics_page, 'lxml')
 		s = soup.find("div", {"class" : "lyrics"})
 		if s is None:
-			return None
+			return "ERR"
 		lyrics = soup.find("div", {"class": "lyrics"}).text
 
 	return lyrics
