@@ -20,12 +20,12 @@ def waitForConnection():
 		# configure how many client the server can listen simultaneously
 		server_socket.listen(2)
 		conn, address = server_socket.accept()  # accept new connection
-		print("Connection from: " + str(address) + "\n")
+		print("Connection from: ",str(address), "\n")
 
 		# receive data stream. it won't accept data packet greater than 1024 bytes
 		data = conn.recv(4096).decode()
 		if data:
-			print("from connected user: " + str(data) + "\n")
+			print("received: " + str(data) + "\n")
 			cmd, info = data.split(":")
 			if cmd == "token":
 				data = getToken(info)
@@ -33,13 +33,13 @@ def waitForConnection():
 				song, artist = info.split(";")
 				data = getLyrics(song,artist)
 			conn.send(data.encode())  # send data to the client
-			print("Sent data of length " + len(data) + " to user. \n")
+			print("Sent data of length", len(data), "to user", address, "\n")
 
 	
 
 def getToken(username):
-	spotify_clientID="REMOVED"
-	spotify_secret="REMOVED"
+	spotify_clientID="1a8ca4b3f9564d59bbba81bfd985c611"
+	spotify_secret="895f78a5901d4a1aa1c44a30e45d24af"
 	hostname="http://localhost:8888/callback/"
 	scope = "user-read-currently-playing"
 	token = util.prompt_for_user_token(username, scope=scope, client_id=spotify_clientID, 
@@ -51,7 +51,7 @@ def getLyrics(songName, artist):
 	genius_clientID="REMOVED"
 	genius_secret="REMOVED"
 	hostname="http://localhost:8888/callback/"
-	genius_token="REMOVED"
+	genius_token="QYZgRX9pHK-TCxsqgSN1BQR05V3Gx3N7YhjRPQWbGYVPXVazzKLZ6lDNvQkXP8-6"
 	
 	headers = {'Authorization': 'Bearer ' + genius_token}
 	data = {'q': songName + ' ' + artist}
