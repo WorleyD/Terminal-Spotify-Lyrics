@@ -37,8 +37,7 @@ def getLyrics(songName, artist):
 
 
 if __name__ == '__main__':
-	print("Please enter your spotify username")
-	username = input()
+	username = input("Please enter your spotify username")
 	while True:
 		token = getToken(username)
 		print("Token received: " + token)
@@ -48,9 +47,9 @@ if __name__ == '__main__':
 
 				#Sometimes the first song does not load properly, likely an issue here
 				sleep(1)
+
 				#clear the console initially for cleaner output
 				print(clear)
-
 				
 				#get currently playing track from spotify
 				track = sp.current_user_playing_track()
@@ -73,18 +72,27 @@ if __name__ == '__main__':
 				print(clear)
 				print(artist," - ",song)
 
-				lyrics = getLyrics(song_title, artist)
-					
-				print("\n", lyrics)
+				lyrics = "ERR"
+				count = 0
+
+				while lyrics == "ERR" and count < 5:
+					lyrics = getLyrics(song_title, artist)
+					count+=1
+				
+				if lyrics == "ERR":
+					print("An error occured getting the lyrics :(\n")	
+
+				else:
+					print("\n", lyrics)
 
 				while True:
 					t = sp.current_user_playing_track()
 					i = t['item']
 					s = i['name']
-					if s != song:
+					if s != song_title:
 						#print(s, song)
 						break
-					sleep(1)
+					sleep(1)	#Check if the song has changed every second
 
 				#clear the console
 				print(clear)	
